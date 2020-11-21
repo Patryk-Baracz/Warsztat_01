@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zgadywanka</title>
+</head>
+<body>
+<h1>Welcome in Zgadywanka the game!</h1><br>
+    <h3>Imagine a number from 0 to 1000, and i will guess it in max 10 tries.<br>
+    Press the START button when ready<br><br><br></h3>
+<form method="post"> <input type="submit" name="value" value="START"></form><br><br><br>
+<h1>{{ comp_guess }}</h1>
+<form method="post">
+
+    <input type="submit" name="value" value="You won">
+    <input type="submit"  name="value" value="To big">
+    <input type="submit"  name="value" value="To small">
+    <input type="hidden" name="min_value" value="{{ min_value }}">
+    <input type="hidden" name="max_value" value="{{ max_value }}">
+</form>
+
+</body>
+</html>
