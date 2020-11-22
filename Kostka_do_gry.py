@@ -14,6 +14,7 @@ def dice_code_test(xDyz):
     code = list(xDyz.split("D"))
     if '+' in code[1]:
         code.extend(list(code.pop().split('+')))
+        substraction = False
     elif '-' in code[1]:
         code.extend(list(code.pop().split('-')))
         substraction = True
