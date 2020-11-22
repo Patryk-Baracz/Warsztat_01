@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyberpunk 2001</title>
+    <style> td { border: 1px solid black; font-size: large} </style>
+</head>
+<body>
+<h1>2001 – Zasady Gry</h1>
+<br>
+ <p>
+    Każdy z graczy zaczyna z liczbą punktów równą 0.<br>
+    W swojej turze, gracz rzuca 2 kośćmi do gry.<br>
+    Wyrzucona liczba oczek jest dodawana do sumarycznej liczby punktów.<br>
+    Począwszy od drugiej tury:<br>
+    - jeśli gracz wyrzuci 7, dzieli swoją liczbę punktów przez tę wartość odrzucając część ułamkową, <br>
+    - jeśli wyrzuci 11, mnoży aktualną liczbę punktów przez tę wartość. <br>
+    Wygrywa gracz, który jako pierwszy uzyska 2001 punktów. <br>
+ </p>
+<br>
+<form method="post">
+    <table>
+        <tr><th>Computer score</th><th>Player score</th></tr>
+        <tr><td>{{computer_points}}</td><td>{{player_points}}</td></tr>
+    </table>
+<br>
+    <p>
+        Choose your dice's:
+    </p>
+    <select name="dice_1">
+		<option value="3">D3</option>
+		<option value="4">D4</option>
+        <option value="6">D6</option>
+		<option value="8">D8</option>
+        <option value="10">D10</option>
+		<option value="12">D12</option>
+        <option value="20">D20</option>
+		<option value="100">D100</option>
+	</select>
+    <select name="dice_2">
+		<option value="3">D3</option>
+		<option value="4">D4</option>
+        <option value="6">D6</option>
+		<option value="8">D8</option>
+        <option value="10">D10</option>
+		<option value="12">D12</option>
+        <option value="20">D20</option>
+		<option value="100">D100</option>
+	</select>
+    <input type="submit" value="Roll">
+    <br>
+    <input type="hidden" name="player_p" value="{{player_points}}">
+    <input type="hidden" name="computer_p" value="{{computer_points}}">
+</form>
+</body>
+</html>

@@ -1,4 +1,8 @@
+from flask import Flask, request, render_template
 import random
+
+
+app = Flask(__name__)
 
 
 def roll_dice(dice_type):
@@ -9,48 +13,35 @@ def roll_dice(dice_type):
 
 
 def player_turn():
-    d_list = [3, 4, 6, 8, 10, 12, 20, 100]
-    while True:
-        d1 = input('Choose your first dice type (3, 4, 6, 8, 10, 12, 20, 100):')
-        if not d1.isdigit():
-            print('You need to type a number!')
-        elif int(d1) not in d_list:
-            print('Choose a number from list above!')
-        else:
-            break
-    while True:
-        d2 = input('Choose your second dice type (3, 4, 6, 8, 10, 12, 20, 100):')
-        if not d2.isdigit():
-            print('You need to type a number!')
-        elif int(d2) not in d_list:
-            print('Choose a number from list above!')
-        else:
-            break
-    value = roll_dice(d1) + roll_dice(d2)
-    return value
+    d1 = int(request.form['dice_1'])
+    d2 = int(request.form['dice_2'])
+    return roll_dice(d1) + roll_dice(d2)
 
 
 def computer_turn():
     c1 = random.choice([3, 4, 6, 8, 10, 12, 20, 100])
     c2 = random.choice([3, 4, 6, 8, 10, 12, 20, 100])
-    computer_value = roll_dice(c1) + roll_dice(c2)
-    return computer_value
+    return roll_dice(c1) + roll_dice(c2)
 
 
+@app.route('/', methods=['GET', 'POST'])
 def game():
-    player_points = 0
-    computer_points = 0
-    while True:
+    if request.method == 'GET':
+        return render_template('Cyberpunk_2001.html', computer_points='0', player_points='0')
+    else:
+        player_points = int(request.form['player_p'])
+        computer_points = int(request.form['computer_p'])
+        while True:
             if player_points >= 2001:
                 break
             elif computer_points >= 2001:
                 break
             else:
-                print(f'computer points = {computer_points}')
-                print(f'Your points = {player_points}')
                 if player_points == 0:
                     player_points += player_turn()
                     computer_points += computer_turn()
+                    return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
+                                           player_points=str(player_points))
                 else:
                     player_score = player_turn()
                     computer_score = computer_turn()
@@ -66,10 +57,13 @@ def game():
                         computer_points = computer_points * 11
                     else:
                         computer_points += computer_score
-    if player_points > computer_points:
-        return 'You won!'
-    else:
-        return 'You lost!'
+                    return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
+                                           player_points=str(player_points))
+        if player_points > computer_points:
+            return render_template('Cyberpunk_2001.html', computer_points=str(computer_points), player_points='You won!')
+        else:
+            return render_template('Cyberpunk_2001.html', computer_points='Computer won!',
+                                   player_points=str(player_points))
 
 
-print(game())
+app.run(debug=True)

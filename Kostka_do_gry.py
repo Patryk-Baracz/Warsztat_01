@@ -9,12 +9,12 @@ def roll_dice(dice_type):
 
 def dice_code_test(xDyz):
     """test the dice code (xDy+z) and return list [x, y, z]"""
+    substraction = False
     if 'D' not in xDyz:
         raise ValueError('There must be "D" in your code')
     code = list(xDyz.split("D"))
     if '+' in code[1]:
         code.extend(list(code.pop().split('+')))
-        substraction = False
     elif '-' in code[1]:
         code.extend(list(code.pop().split('-')))
         substraction = True
