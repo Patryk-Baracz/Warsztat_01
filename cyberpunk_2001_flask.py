@@ -31,38 +31,33 @@ def game():
     else:
         player_points = int(request.form['player_p'])
         computer_points = int(request.form['computer_p'])
-        while True:
-            if player_points >= 2001:
-                break
-            elif computer_points >= 2001:
-                break
-            else:
-                if player_points == 0:
-                    player_points += player_turn()
-                    computer_points += computer_turn()
-                    return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
-                                           player_points=str(player_points))
-                else:
-                    player_score = player_turn()
-                    computer_score = computer_turn()
-                    if player_score == 7:
-                        player_points = int(player_points / 7)
-                    elif player_score == 11:
-                        player_points = player_points * 11
-                    else:
-                        player_points += player_score
-                    if computer_score == 7:
-                        computer_points = int(computer_points / 7)
-                    elif computer_score == 11:
-                        computer_points = computer_points * 11
-                    else:
-                        computer_points += computer_score
-                    return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
-                                           player_points=str(player_points))
-        if player_points > computer_points:
-            return render_template('Cyberpunk_2001.html', computer_points=str(computer_points), player_points='You won!')
+        if player_points == 0:
+            player_points += player_turn()
+            computer_points += computer_turn()
+            return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
+                                       player_points=str(player_points))
         else:
+            player_score = player_turn()
+            computer_score = computer_turn()
+            if player_score == 7:
+                player_points = int(player_points / 7)
+            elif player_score == 11:
+                player_points = player_points * 11
+            else:
+                player_points += player_score
+            if computer_score == 7:
+                computer_points = int(computer_points / 7)
+            elif computer_score == 11:
+                computer_points = computer_points * 11
+            else:
+                computer_points += computer_score
+        if player_points > 2001:
+            return render_template('Cyberpunk_2001.html', computer_points=str(computer_points), player_points='You won!')
+        elif computer_points > 2001:
             return render_template('Cyberpunk_2001.html', computer_points='Computer won!',
+                                   player_points=str(player_points))
+        else:
+            return render_template('Cyberpunk_2001.html', computer_points=str(computer_points),
                                    player_points=str(player_points))
 
 
